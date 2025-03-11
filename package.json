@@ -1,0 +1,55 @@
+{
+  "name": "@gleanwork/server-glean",
+  "version": "0.0.1",
+  "private": true,
+  "description": "MCP server for Glean API integration",
+  "keywords": [
+    "mcp",
+    "mcp-server"
+  ],
+  "homepage": "",
+  "repository": "",
+  "license": "MIT",
+  "author": "Steve Calvert <steve.calvert@glean.com>",
+  "type": "module",
+  "main": "./build/index.js",
+  "files": [
+    "build/lib/**/*",
+    "build/index.*",
+    "build/types/**/*"
+  ],
+  "scripts": {
+    "build": "rimraf build && tsc",
+    "build-live": "tsc -w",
+    "format": "prettier src/**/*.ts -w",
+    "lint": "eslint --ext ts,js --fix src",
+    "test": ""
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2",
+    "glean-client": "portal:/Users/steve.calvert/workspace/glean/glean-client-node",
+    "zod": "^3.24.2",
+    "zod-to-json-schema": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^18.19.80",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "fs-extra": "^11.3.0",
+    "prettier": "^2.3.0",
+    "rimraf": "^3.0.2",
+    "typescript": "next"
+  },
+  "engines": {
+    "node": ">=13.2.0"
+  },
+  "volta": {
+    "node": "22.14.0",
+    "yarn": "4.7.0"
+  }
+}
