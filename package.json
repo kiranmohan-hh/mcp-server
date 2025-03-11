@@ -22,14 +22,17 @@
     "build": "rimraf build && tsc",
     "build-live": "tsc -w",
     "format": "prettier src/**/*.ts -w",
+    "inspect": "npx @modelcontextprotocol/inspector node build/index.js",
     "lint": "eslint --ext ts,js --fix src",
-    "test": ""
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.1",
     "@types/express": "^5.0.0",
+    "@types/node-fetch": "^2.6.11",
     "express": "^4.21.2",
-    "glean-client": "portal:/Users/steve.calvert/workspace/glean/glean-client-node",
+    "node-fetch": "^2.7.0",
     "zod": "^3.24.2",
     "zod-to-json-schema": "^3.24.3"
   },
@@ -43,13 +46,14 @@
     "fs-extra": "^11.3.0",
     "prettier": "^2.3.0",
     "rimraf": "^3.0.2",
-    "typescript": "next"
+    "typescript": "next",
+    "vitest": "^3.0.8"
   },
   "engines": {
-    "node": ">=13.2.0"
+    "node": ">=18"
   },
   "volta": {
     "node": "22.14.0",
-    "yarn": "4.7.0"
+    "pnpm": "10.6.2"
   }
 }
