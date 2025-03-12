@@ -14,19 +14,19 @@ cd server-glean
 1. Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 1. Run tests:
 
 ```bash
-npm test
+pnpm test
 ```
 
 1. Build the project:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Running the Server Locally

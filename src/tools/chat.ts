@@ -8,10 +8,15 @@ import { getClient } from '../common/client.js';
  * @type {z.ZodObject}
  */
 const AgentConfigSchema = z.object({
-  agent: z.enum(['DEFAULT', 'GPT']).optional().describe('Name of the agent'),
+  agent: z
+    .enum(['DEFAULT', 'GPT'])
+    .optional()
+    .default('DEFAULT')
+    .describe('Name of the agent'),
   mode: z
     .enum(['DEFAULT', 'QUICK'])
     .optional()
+    .default('DEFAULT')
     .describe('Top level modes to run GleanChat in'),
 });
 
@@ -171,6 +176,7 @@ const ChatMessageSchema = z.object({
       'WARNING',
     ])
     .optional()
+    .default('CONTENT')
     .describe('Type of the message'),
   ts: z.string().optional().describe('Response timestamp of the message'),
   uploadedFileIds: z
