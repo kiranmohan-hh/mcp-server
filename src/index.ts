@@ -23,7 +23,7 @@ import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import * as search from './tools/search.js';
 import * as chat from './tools/chat.js';
-import { GleanError, isGleanError } from './common/errors.js';
+import { isGleanError, formatGleanError } from './common/errors.js';
 
 /**
  * MCP server instance configured for Glean's implementation.
@@ -102,20 +102,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       default:
-        return {
-          content: [
-            { type: 'text', text: `Unknown tool: ${request.params.name}` },
-          ],
-          isError: true,
-        };
+        throw new Error(`Unknown tool: ${request.params.name}`);
     }
   } catch (error) {
     if (error instanceof z.ZodError) {
+      const errorDetails = error.errors
+        .map((err) => {
+          return `${err.path.join('.')}: ${err.message}`;
+        })
+        .join('\n');
+
       return {
         content: [
           {
             type: 'text',
-            text: `Invalid input: ${JSON.stringify(error.errors)}`,
+            text: `Invalid input:\n${errorDetails}`,
           },
         ],
         isError: true,
@@ -164,13 +165,3 @@ runServer().catch((error) => {
   console.error('Fatal error in main():', error);
   process.exit(1);
 });
-
-/**
- * Formats a Glean-specific error into a user-friendly message.
- *
- * @param {GleanError} error - The Glean error to format
- * @returns {string} A formatted error message
- */
-function formatGleanError(error: GleanError): string {
-  return `Error: ${error.message}`;
-}
