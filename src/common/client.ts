@@ -48,7 +48,7 @@ class GleanClientImpl implements GleanClient {
    * @param {GleanConfig} config - Configuration for the client
    */
   constructor(private readonly config: GleanConfig) {
-    this.baseUrl = `https://${config.subdomain}-be.glean.com/rest`;
+    this.baseUrl = `https://${config.subdomain}-be.glean.com/rest/api/v1/`;
 
     // Set up headers based on token type and actAs parameter
     this.headers = {
@@ -113,7 +113,7 @@ class GleanClientImpl implements GleanClient {
    * @returns {Promise<unknown>} Search results
    */
   async search(params: unknown): Promise<unknown> {
-    return this.request('/api/v1/search', params);
+    return this.request('search', params);
   }
 
   /**
@@ -123,7 +123,7 @@ class GleanClientImpl implements GleanClient {
    * @returns {Promise<unknown>} Chat response
    */
   async chat(params: unknown): Promise<unknown> {
-    return this.request('/api/v1/chat', params);
+    return this.request('chat', params);
   }
 }
 
