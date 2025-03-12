@@ -1,5 +1,10 @@
 # @gleanwork/server-glean
 
+![](https://badge.mcpx.dev?type=server 'MCP Server')
+![CI Build](https://github.com/gleanwork/server-glean/actions/workflows/ci.yml/badge.svg)
+[![npm version](https://badge.fury.io/js/%40gleanwork%2Fserver-glean.svg)](https://badge.fury.io/js/%40gleanwork%2Fserver-glean)
+[![License](https://img.shields.io/npm/l/@gleanwork%2Fserver-glean.svg)](https://github.com/gleanwork/server-glean/blob/main/LICENSE)
+
 A Model Context Protocol (MCP) server implementation for Glean's search and chat capabilities. This server provides a standardized interface for AI models to interact with Glean's content search and conversational AI features through stdio communication.
 
 ## Features
