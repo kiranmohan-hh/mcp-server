@@ -10,6 +10,9 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
     env:
       VOLTA_FEATURE_PNPM: 1
     steps:
@@ -18,6 +21,8 @@ jobs:
 
       - name: Setup Node.js and pnpm with Volta
         uses: volta-cli/action@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
