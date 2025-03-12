@@ -10,7 +10,7 @@
  * 1. search - Allows searching through Glean's indexed content
  * 2. chat - Enables conversation with Glean's AI assistant
  *
- * @module @gleanwork/server-glean
+ * @module @gleanwork/mcp-server
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';

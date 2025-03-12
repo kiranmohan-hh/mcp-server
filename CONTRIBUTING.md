@@ -1,4 +1,4 @@
-# Contributing to @gleanwork/server-glean
+# Contributing to @gleanwork/mcp-server
 
 Thank you for your interest in contributing to the Glean MCP Server! This document provides guidelines and instructions for development.
 
@@ -7,8 +7,8 @@ Thank you for your interest in contributing to the Glean MCP Server! This docume
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/gleanwork/server-glean.git
-cd server-glean
+git clone https://github.com/gleanwork/mcp-server.git
+cd mcp-server
 ```
 
 1. Install dependencies:
@@ -69,5 +69,5 @@ Input and output follow the JSON-RPC 2.0 protocol, with each message on a new li
 ## Need Help?
 
 - Documentation: [docs.glean.com](https://docs.glean.com)
-- Issues: [GitHub Issues](https://github.com/gleanwork/server-glean/issues)
+- Issues: [GitHub Issues](https://github.com/gleanwork/mcp-server/issues)
 - Email: [support@glean.com](mailto:support@glean.com)

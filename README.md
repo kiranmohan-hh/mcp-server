@@ -1,9 +1,9 @@
-# @gleanwork/server-glean
+# @gleanwork/mcp-server
 
 ![](https://badge.mcpx.dev?type=server 'MCP Server')
-![CI Build](https://github.com/gleanwork/server-glean/actions/workflows/ci.yml/badge.svg)
-[![npm version](https://badge.fury.io/js/%40gleanwork%2Fserver-glean.svg)](https://badge.fury.io/js/%40gleanwork%2Fserver-glean)
-[![License](https://img.shields.io/npm/l/@gleanwork%2Fserver-glean.svg)](https://github.com/gleanwork/server-glean/blob/main/LICENSE)
+![CI Build](https://github.com/gleanwork/mcp-server/actions/workflows/ci.yml/badge.svg)
+[![npm version](https://badge.fury.io/js/%40gleanwork%2Fmcp-server.svg)](https://badge.fury.io/js/%40gleanwork%2Fmcp-server)
+[![License](https://img.shields.io/npm/l/@gleanwork%2Fmcp-server.svg)](https://github.com/gleanwork/mcp-server/blob/main/LICENSE)
 
 A Model Context Protocol (MCP) server implementation for Glean's search and chat capabilities. This server provides a standardized interface for AI models to interact with Glean's content search and conversational AI features through stdio communication.
 
@@ -21,7 +21,7 @@ A Model Context Protocol (MCP) server implementation for Glean's search and chat
 ## Installation
 
 ```bash
-npm install @gleanwork/server-glean
+npm install @gleanwork/mcp-server
 ```
 
 ## Configuration
@@ -82,5 +82,5 @@ MIT License - see the [LICENSE](LICENSE) file for details
 ## Support
 
 - Documentation: [docs.glean.com](https://docs.glean.com)
-- Issues: [GitHub Issues](https://github.com/gleanwork/server-glean/issues)
+- Issues: [GitHub Issues](https://github.com/gleanwork/mcp-server/issues)
 - Email: [support@glean.com](mailto:support@glean.com)
