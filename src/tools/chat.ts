@@ -24,9 +24,15 @@ const AgentConfigSchema = z.object({
 const ParameterSchema = z.object({
   description: z.string().optional().describe('Description of the parameter'),
   displayName: z.string().optional().describe('Display name for the parameter'),
-  isRequired: z.boolean().optional().describe('Whether the parameter is required'),
+  isRequired: z
+    .boolean()
+    .optional()
+    .describe('Whether the parameter is required'),
   label: z.string().optional().describe('Label for the parameter'),
-  type: z.enum(['UNKNOWN', 'INTEGER', 'STRING', 'BOOLEAN']).optional().describe('Data type of the parameter'),
+  type: z
+    .enum(['UNKNOWN', 'INTEGER', 'STRING', 'BOOLEAN'])
+    .optional()
+    .describe('Data type of the parameter'),
   value: z.string().optional().describe('Value of the parameter'),
 });
 
@@ -37,7 +43,10 @@ const ParameterSchema = z.object({
  * @type {z.ZodObject}
  */
 const ActionSchema = z.object({
-  parameters: z.record(z.string(), ParameterSchema).optional().describe('Map of parameter names to parameter definitions'),
+  parameters: z
+    .record(z.string(), ParameterSchema)
+    .optional()
+    .describe('Map of parameter names to parameter definitions'),
 });
 
 /**
@@ -58,19 +67,32 @@ const ChatFileSchema = z.object({
  * @type {z.ZodObject}
  */
 const ChatMessageCitationSchema = z.object({
-  sourceDocument: z.object({
-    id: z.string().describe('Document ID'),
-    title: z.string().optional().describe('Document title'),
-    referenceRanges: z.array(
-      z.object({
-        textRange: z.object({
-          startIndex: z.number().describe('Inclusive start index of the range'),
-          endIndex: z.number().describe('Exclusive end index of the range'),
-          type: z.enum(['BOLD', 'CITATION', 'LINK']).describe('Type of formatting to apply')
-        }).describe('A subsection of text with special formatting')
-      })
-    ).optional().describe('Ranges within the document that are referenced')
-  }).describe('The document that is the source of the citation')
+  sourceDocument: z
+    .object({
+      id: z.string().describe('Document ID'),
+      title: z.string().optional().describe('Document title'),
+      referenceRanges: z
+        .array(
+          z.object({
+            textRange: z
+              .object({
+                startIndex: z
+                  .number()
+                  .describe('Inclusive start index of the range'),
+                endIndex: z
+                  .number()
+                  .describe('Exclusive end index of the range'),
+                type: z
+                  .enum(['BOLD', 'CITATION', 'LINK'])
+                  .describe('Type of formatting to apply'),
+              })
+              .describe('A subsection of text with special formatting'),
+          }),
+        )
+        .optional()
+        .describe('Ranges within the document that are referenced'),
+    })
+    .describe('The document that is the source of the citation'),
 });
 
 /**
@@ -81,10 +103,20 @@ const ChatMessageCitationSchema = z.object({
  */
 const ChatMessageFragmentSchema = z.object({
   text: z.string().optional().describe('Text content of the fragment'),
-  action: ActionSchema.optional().describe('Action information for the fragment'),
-  file: ChatFileSchema.optional().describe('File referenced in the message fragment'),
-  querySuggestion: z.any().optional().describe('Search query suggestion associated with the fragment'),
-  structuredResults: z.array(z.any()).optional().describe('Structured results associated with the fragment'),
+  action: ActionSchema.optional().describe(
+    'Action information for the fragment',
+  ),
+  file: ChatFileSchema.optional().describe(
+    'File referenced in the message fragment',
+  ),
+  querySuggestion: z
+    .any()
+    .optional()
+    .describe('Search query suggestion associated with the fragment'),
+  structuredResults: z
+    .array(z.any())
+    .optional()
+    .describe('Structured results associated with the fragment'),
 });
 
 /**
@@ -94,7 +126,10 @@ const ChatMessageFragmentSchema = z.object({
  * @type {z.ZodObject}
  */
 const ChatRestrictionFiltersSchema = z.object({
-  datasources: z.array(z.string()).optional().describe('List of datasources to include/exclude'),
+  datasources: z
+    .array(z.string())
+    .optional()
+    .describe('List of datasources to include/exclude'),
 });
 
 /**
@@ -104,11 +139,26 @@ const ChatRestrictionFiltersSchema = z.object({
  * @type {z.ZodObject}
  */
 const ChatMessageSchema = z.object({
-  agentConfig: AgentConfigSchema.optional().describe('Agent config that generated this message'),
-  author: z.enum(['USER', 'GLEAN_AI']).optional().default('USER').describe('Author of the message'),
-  citations: z.array(ChatMessageCitationSchema).optional().describe('Citations used to generate the response'),
-  fragments: z.array(ChatMessageFragmentSchema).optional().describe('Rich data representing the response or request'),
-  messageId: z.string().optional().describe('Unique server-side generated ID for the message'),
+  agentConfig: AgentConfigSchema.optional().describe(
+    'Agent config that generated this message',
+  ),
+  author: z
+    .enum(['USER', 'GLEAN_AI'])
+    .optional()
+    .default('USER')
+    .describe('Author of the message'),
+  citations: z
+    .array(ChatMessageCitationSchema)
+    .optional()
+    .describe('Citations used to generate the response'),
+  fragments: z
+    .array(ChatMessageFragmentSchema)
+    .optional()
+    .describe('Rich data representing the response or request'),
+  messageId: z
+    .string()
+    .optional()
+    .describe('Unique server-side generated ID for the message'),
   messageType: z
     .enum([
       'UPDATE',
@@ -123,8 +173,14 @@ const ChatMessageSchema = z.object({
     .optional()
     .describe('Type of the message'),
   ts: z.string().optional().describe('Response timestamp of the message'),
-  uploadedFileIds: z.array(z.string()).optional().describe('IDs of files uploaded in the message'),
-  hasMoreFragments: z.boolean().optional().describe('Whether more fragments will follow in subsequent messages'),
+  uploadedFileIds: z
+    .array(z.string())
+    .optional()
+    .describe('IDs of files uploaded in the message'),
+  hasMoreFragments: z
+    .boolean()
+    .optional()
+    .describe('Whether more fragments will follow in subsequent messages'),
 });
 
 /**
@@ -134,16 +190,44 @@ const ChatMessageSchema = z.object({
  * @type {z.ZodObject}
  */
 export const ChatSchema = z.object({
-  messages: z.array(ChatMessageSchema).describe('List of chat messages, from most recent to least recent'),
-  agentConfig: AgentConfigSchema.optional().describe('Describes the agent that will execute the request'),
-  chatId: z.string().optional().describe('ID of the Chat to retrieve context from and add messages to'),
-  saveChat: z.boolean().optional().describe('Save the interaction as a Chat for the user to access later'),
-  stream: z.boolean().optional().describe('If true, response lines will be streamed one-by-one as they become available'),
-  timeoutMillis: z.number().optional().describe('Request timeout in milliseconds'),
-  applicationId: z.string().optional().describe('ID of the application this request originates from'),
-  timezoneOffset: z.number().optional().describe('Offset of client timezone in minutes from UTC'),
-  inclusions: ChatRestrictionFiltersSchema.optional().describe('Filters that only allow chat to access certain content'),
-  exclusions: ChatRestrictionFiltersSchema.optional().describe('Filters that disallow chat from accessing certain content'),
+  messages: z
+    .array(ChatMessageSchema)
+    .describe('List of chat messages, from most recent to least recent'),
+  agentConfig: AgentConfigSchema.optional().describe(
+    'Describes the agent that will execute the request',
+  ),
+  chatId: z
+    .string()
+    .optional()
+    .describe('ID of the Chat to retrieve context from and add messages to'),
+  saveChat: z
+    .boolean()
+    .optional()
+    .describe('Save the interaction as a Chat for the user to access later'),
+  stream: z
+    .boolean()
+    .optional()
+    .describe(
+      'If true, response lines will be streamed one-by-one as they become available',
+    ),
+  timeoutMillis: z
+    .number()
+    .optional()
+    .describe('Request timeout in milliseconds'),
+  applicationId: z
+    .string()
+    .optional()
+    .describe('ID of the application this request originates from'),
+  timezoneOffset: z
+    .number()
+    .optional()
+    .describe('Offset of client timezone in minutes from UTC'),
+  inclusions: ChatRestrictionFiltersSchema.optional().describe(
+    'Filters that only allow chat to access certain content',
+  ),
+  exclusions: ChatRestrictionFiltersSchema.optional().describe(
+    'Filters that disallow chat from accessing certain content',
+  ),
 });
 
 /**
@@ -160,4 +244,89 @@ export const ChatSchema = z.object({
 export async function chat(params: z.infer<typeof ChatSchema>) {
   const client = getClient();
   return await client.chat(params);
+}
+
+/**
+ * Formats chat responses into a human-readable text format.
+ *
+ * @param {any} chatResponse - The raw chat response from Glean API
+ * @returns {string} Formatted chat response as text
+ */
+export function formatResponse(chatResponse: any): string {
+  if (
+    !chatResponse ||
+    !chatResponse.messages ||
+    !Array.isArray(chatResponse.messages) ||
+    chatResponse.messages.length === 0
+  ) {
+    return 'No response received.';
+  }
+
+  const formattedMessages = chatResponse.messages
+    .map((message: any) => {
+      const author = message.author || 'Unknown';
+
+      let messageText = '';
+
+      if (message.fragments && Array.isArray(message.fragments)) {
+        messageText = message.fragments
+          .map((fragment: any) => {
+            if (fragment.text) {
+              return fragment.text;
+            } else if (fragment.querySuggestion) {
+              return `Query: ${fragment.querySuggestion.query}`;
+            } else if (
+              fragment.structuredResults &&
+              Array.isArray(fragment.structuredResults)
+            ) {
+              return fragment.structuredResults
+                .map((result: any) => {
+                  if (result.document) {
+                    const doc = result.document;
+
+                    return `Document: ${doc.title || 'Untitled'} (${
+                      doc.url || 'No URL'
+                    })`;
+                  }
+
+                  return '';
+                })
+                .filter(Boolean)
+                .join('\n');
+            }
+
+            return '';
+          })
+          .filter(Boolean)
+          .join('\n');
+      }
+
+      let citationsText = '';
+      if (
+        message.citations &&
+        Array.isArray(message.citations) &&
+        message.citations.length > 0
+      ) {
+        citationsText =
+          '\n\nSources:\n' +
+          message.citations
+            .map((citation: any, index: number) => {
+              const sourceDoc = citation.sourceDocument || {};
+              const title = sourceDoc.title || 'Unknown source';
+              const url = sourceDoc.url || '';
+              return `[${index + 1}] ${title} - ${url}`;
+            })
+            .join('\n');
+      }
+
+      const messageType = message.messageType
+        ? ` (${message.messageType})`
+        : '';
+      const stepId = message.stepId ? ` [Step: ${message.stepId}]` : '';
+
+      return `${author}${messageType}${stepId}: ${messageText}${citationsText}`;
+    })
+    .join('\n\n');
+
+  return formattedMessages;
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatSearchResults } from '../../index';
+import { formatResponse } from '../../tools/search';
 
 describe('Search Formatter', () => {
   it('should format search results correctly', () => {
@@ -78,7 +78,7 @@ describe('Search Formatter', () => {
       },
     };
 
-    const formattedResults = formatSearchResults(mockSearchResults);
+    const formattedResults = formatResponse(mockSearchResults);
 
     expect(formattedResults).toContain('Search results for "glean"');
     expect(formattedResults).toContain(
@@ -100,7 +100,7 @@ describe('Search Formatter', () => {
       },
     };
 
-    const formattedResults = formatSearchResults(emptyResults);
+    const formattedResults = formatResponse(emptyResults);
     expect(formattedResults).toContain(
       'Search results for "nonexistent term" (0 results)',
     );
@@ -108,7 +108,7 @@ describe('Search Formatter', () => {
 
   it('should handle missing results', () => {
     const noResults = {};
-    const formattedResults = formatSearchResults(noResults);
+    const formattedResults = formatResponse(noResults);
     expect(formattedResults).toBe('No results found.');
   });
 
@@ -128,7 +128,7 @@ describe('Search Formatter', () => {
       },
     };
 
-    const formattedResults = formatSearchResults(resultsWithoutSnippets);
+    const formattedResults = formatResponse(resultsWithoutSnippets);
     expect(formattedResults).toContain('Test Result');
     expect(formattedResults).toContain('No description available');
     expect(formattedResults).toContain('Source: testdatasource');

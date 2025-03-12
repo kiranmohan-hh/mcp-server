@@ -61,112 +61,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 /**
- * Formats search results into a human-readable text format.
- *
- * @param {any} searchResults - The raw search results from Glean API
- * @returns {string} Formatted search results as text
- */
-export function formatSearchResults(searchResults: any): string {
-  if (
-    !searchResults ||
-    !searchResults.results ||
-    !Array.isArray(searchResults.results)
-  ) {
-    return 'No results found.';
-  }
-
-  const formattedResults = searchResults.results
-    .map((result: any, index: number) => {
-      const title = result.title || 'No title';
-      const url = result.url || '';
-      const document = result.document || {};
-
-      let snippetText = '';
-      if (result.snippets && Array.isArray(result.snippets)) {
-        const sortedSnippets = [...result.snippets].sort((a, b) => {
-          const orderA = a.snippetTextOrdering || 0;
-          const orderB = b.snippetTextOrdering || 0;
-          return orderA - orderB;
-        });
-
-        snippetText = sortedSnippets
-          .map((snippet) => snippet.text || '')
-          .filter(Boolean)
-          .join('\n');
-      }
-
-      if (!snippetText) {
-        snippetText = 'No description available';
-      }
-
-      return `[${index + 1}] ${title}\n${snippetText}\nSource: ${
-        document.datasource || 'Unknown source'
-      }\nURL: ${url}`;
-    })
-    .join('\n\n');
-
-  const totalResults =
-    searchResults.totalResults || searchResults.results.length;
-  const query = searchResults.metadata.searchedQuery || 'your query';
-
-  return `Search results for "${query}" (${totalResults} results):\n\n${formattedResults}`;
-}
-
-/**
- * Formats chat responses into a human-readable text format.
- *
- * @param {any} chatResponse - The raw chat response from Glean API
- * @returns {string} Formatted chat response as text
- */
-export function formatChatResponse(chatResponse: any): string {
-  if (
-    !chatResponse ||
-    !chatResponse.messages ||
-    !Array.isArray(chatResponse.messages) ||
-    chatResponse.messages.length === 0
-  ) {
-    return 'No response received.';
-  }
-
-  const formattedMessages = chatResponse.messages
-    .map((message: any) => {
-      const author = message.author || 'Unknown';
-
-      // Extract text from fragments
-      let messageText = '';
-      if (message.fragments && Array.isArray(message.fragments)) {
-        messageText = message.fragments
-          .map((fragment: any) => fragment.text || '')
-          .filter(Boolean)
-          .join('\n');
-      }
-
-      // Format citations if present
-      let citationsText = '';
-      if (
-        message.citations &&
-        Array.isArray(message.citations) &&
-        message.citations.length > 0
-      ) {
-        citationsText =
-          '\n\nSources:\n' +
-          message.citations
-            .map((citation: any, index: number) => {
-              const title = citation.title || 'Unknown source';
-              const url = citation.url || '';
-              return `[${index + 1}] ${title} - ${url}`;
-            })
-            .join('\n');
-      }
-
-      return `${author}: ${messageText}${citationsText}`;
-    })
-    .join('\n\n');
-
-  return formattedMessages;
-}
-
-/**
  * Handles tool execution requests by validating input and dispatching to the appropriate tool.
  * Supports the following tools:
  * - search: Executes a search query against Glean's index
@@ -188,7 +82,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'search': {
         const args = search.SearchSchema.parse(request.params.arguments);
         const result = await search.search(args);
-        const formattedResults = formatSearchResults(result);
+        const formattedResults = search.formatResponse(result);
 
         return {
           content: [{ type: 'text', text: formattedResults }],
@@ -199,7 +93,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'chat': {
         const args = chat.ChatSchema.parse(request.params.arguments);
         const response = await chat.chat(args);
-        const formattedResponse = formatChatResponse(response);
+        const formattedResponse = chat.formatResponse(response);
 
         return {
           content: [{ type: 'text', text: formattedResponse }],
