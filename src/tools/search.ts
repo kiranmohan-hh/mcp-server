@@ -222,8 +222,10 @@ export const SearchSchema = z.object({
  * @throws {Error} If the search request fails
  */
 export async function search(params: z.infer<typeof SearchSchema>) {
+  const parsedParams = SearchSchema.parse(params);
   const client = getClient();
-  return await client.search(params);
+
+  return await client.search(parsedParams);
 }
 
 /**

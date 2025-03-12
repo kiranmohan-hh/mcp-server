@@ -129,35 +129,35 @@ export function isGleanError(error: unknown): error is GleanError {
 }
 
 /**
- * Formats a GleanError into a human-readable error message.
- * This function provides detailed error messages based on the specific error type.
+ * Creates a specific GleanError subclass based on the HTTP status code.
  *
- * @param {GleanError} error - The error to format
- * @returns {string} A formatted error message
+ * @param {number} status - The HTTP status code
+ * @param {any} response - The response data
+ * @returns {GleanError} The appropriate GleanError subclass
  */
-export function formatGleanError(error: GleanError): string {
-  let message = `Glean API Error: ${error.message}`;
-
-  if (error instanceof GleanInvalidRequestError) {
-    message = `Invalid Request: ${error.message}`;
-    if (error.response) {
-      message += `\nDetails: ${JSON.stringify(error.response)}`;
-    }
-  } else if (error instanceof GleanAuthenticationError) {
-    message = `Authentication Failed: ${error.message}`;
-  } else if (error instanceof GleanPermissionError) {
-    message = `Permission Denied: ${error.message}`;
-  } else if (error instanceof GleanRequestTimeoutError) {
-    message = `Request Timeout: ${error.message}`;
-  } else if (error instanceof GleanValidationError) {
-    message = `Invalid Query: ${error.message}`;
-    if (error.response) {
-      message += `\nDetails: ${JSON.stringify(error.response)}`;
-    }
-  } else if (error instanceof GleanRateLimitError) {
-    message = `Rate Limit Exceeded: ${error.message}`;
-    message += `\nResets at: ${error.resetAt.toISOString()}`;
+export function createGleanError(status: number, response: any): GleanError {
+  switch (status) {
+    case 400:
+      return new GleanInvalidRequestError(response?.message, response);
+    case 401:
+      return new GleanAuthenticationError(response?.message, response);
+    case 403:
+      return new GleanPermissionError(response?.message, response);
+    case 408:
+      return new GleanRequestTimeoutError(response?.message, response);
+    case 422:
+      return new GleanValidationError(response?.message, response);
+    case 429:
+      return new GleanRateLimitError(
+        response?.message,
+        new Date(response?.reset_at || Date.now() + 60000),
+        response,
+      );
+    default:
+      return new GleanError(
+        response?.message || 'Glean API error',
+        status,
+        response,
+      );
   }
-
-  return message;
 }

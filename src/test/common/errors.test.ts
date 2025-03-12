@@ -8,8 +8,9 @@ import {
   GleanValidationError,
   GleanRateLimitError,
   isGleanError,
-  formatGleanError,
+  createGleanError,
 } from '../../common/errors';
+import { formatGleanError } from '../../index';
 
 describe('Glean Errors', () => {
   describe('formatGleanError', () => {
@@ -143,5 +144,51 @@ describe('Glean Errors', () => {
     expect(isGleanError(null)).toBe(false);
     expect(isGleanError(undefined)).toBe(false);
     expect(isGleanError('string')).toBe(false);
+  });
+
+  describe('createGleanError', () => {
+    it('should create the correct error type based on status code', () => {
+      const error400 = createGleanError(400, { message: 'Bad request' });
+      expect(error400).toBeInstanceOf(GleanInvalidRequestError);
+      expect(error400.status).toBe(400);
+
+      const error401 = createGleanError(401, { message: 'Unauthorized' });
+      expect(error401).toBeInstanceOf(GleanAuthenticationError);
+      expect(error401.status).toBe(401);
+
+      const error403 = createGleanError(403, { message: 'Forbidden' });
+      expect(error403).toBeInstanceOf(GleanPermissionError);
+      expect(error403.status).toBe(403);
+
+      const error408 = createGleanError(408, { message: 'Timeout' });
+      expect(error408).toBeInstanceOf(GleanRequestTimeoutError);
+      expect(error408.status).toBe(408);
+
+      const error422 = createGleanError(422, { message: 'Invalid query' });
+      expect(error422).toBeInstanceOf(GleanValidationError);
+      expect(error422.status).toBe(422);
+
+      const error429 = createGleanError(429, { message: 'Too many requests' });
+      expect(error429).toBeInstanceOf(GleanRateLimitError);
+      expect(error429.status).toBe(429);
+
+      const error500 = createGleanError(500, { message: 'Server error' });
+      expect(error500).toBeInstanceOf(GleanError);
+      expect(error500.status).toBe(500);
+    });
+
+    it('should use default message if none provided', () => {
+      const error400 = createGleanError(400, {});
+      expect(error400.message).toBe('Invalid request');
+
+      const error401 = createGleanError(401, {});
+      expect(error401.message).toBe('Authentication failed');
+
+      const error429 = createGleanError(429, {});
+      expect(error429.message).toBe('Too many requests');
+
+      const error500 = createGleanError(500, {});
+      expect(error500.message).toBe('Glean API error');
+    });
   });
 });

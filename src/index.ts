@@ -23,7 +23,16 @@ import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import * as search from './tools/search.js';
 import * as chat from './tools/chat.js';
-import { isGleanError, formatGleanError } from './common/errors.js';
+import {
+  isGleanError,
+  GleanError,
+  GleanInvalidRequestError,
+  GleanAuthenticationError,
+  GleanPermissionError,
+  GleanRateLimitError,
+  GleanRequestTimeoutError,
+  GleanValidationError,
+} from './common/errors.js';
 
 /**
  * MCP server instance configured for Glean's implementation.
@@ -143,6 +152,40 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     };
   }
 });
+
+/**
+ * Formats a GleanError into a human-readable error message.
+ * This function provides detailed error messages based on the specific error type.
+ *
+ * @param {GleanError} error - The error to format
+ * @returns {string} A formatted error message
+ */
+export function formatGleanError(error: GleanError): string {
+  let message = `Glean API Error: ${error.message}`;
+
+  if (error instanceof GleanInvalidRequestError) {
+    message = `Invalid Request: ${error.message}`;
+    if (error.response) {
+      message += `\nDetails: ${JSON.stringify(error.response)}`;
+    }
+  } else if (error instanceof GleanAuthenticationError) {
+    message = `Authentication Failed: ${error.message}`;
+  } else if (error instanceof GleanPermissionError) {
+    message = `Permission Denied: ${error.message}`;
+  } else if (error instanceof GleanRequestTimeoutError) {
+    message = `Request Timeout: ${error.message}`;
+  } else if (error instanceof GleanValidationError) {
+    message = `Invalid Query: ${error.message}`;
+    if (error.response) {
+      message += `\nDetails: ${JSON.stringify(error.response)}`;
+    }
+  } else if (error instanceof GleanRateLimitError) {
+    message = `Rate Limit Exceeded: ${error.message}`;
+    message += `\nResets at: ${error.resetAt.toISOString()}`;
+  }
+
+  return message;
+}
 
 /**
  * Initializes and starts the MCP server using stdio transport.

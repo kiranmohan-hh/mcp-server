@@ -16,7 +16,7 @@
  */
 
 import fetch, { Response } from 'node-fetch';
-import { GleanError } from './errors.js';
+import { GleanError, createGleanError } from './errors.js';
 
 /**
  * Configuration interface for Glean client initialization.
@@ -83,11 +83,11 @@ class GleanClientImpl implements GleanClient {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new GleanError(
-          `Glean API error: ${response.statusText}`,
-          response.status,
-          data,
-        );
+        const errorMessage = `Glean API error: ${response.statusText}`;
+        throw createGleanError(response.status, {
+          ...data,
+          message: errorMessage,
+        });
       }
 
       return data;

@@ -242,8 +242,10 @@ export const ChatSchema = z.object({
  * @throws {Error} If the chat request fails
  */
 export async function chat(params: z.infer<typeof ChatSchema>) {
+  const parsedParams = ChatSchema.parse(params);
   const client = getClient();
-  return await client.chat(params);
+
+  return await client.chat(parsedParams);
 }
 
 /**
