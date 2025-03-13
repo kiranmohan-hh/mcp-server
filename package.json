@@ -10,7 +10,7 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": "git@github.com:gleanwork/server-glean.git"
+    "url": "git@github.com:gleanwork/mcp-server.git"
   },
   "license": "MIT",
   "author": "Steve Calvert <steve.calvert@glean.com>",
