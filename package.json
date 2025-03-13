@@ -8,7 +8,10 @@
     "mcp-server"
   ],
   "homepage": "",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gleanwork/server-glean.git"
+  },
   "license": "MIT",
   "author": "Steve Calvert <steve.calvert@glean.com>",
   "type": "module",
@@ -37,6 +40,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.22.0",
+    "@release-it-plugins/lerna-changelog": "^5.0.0",
     "@types/node": "^18.19.80",
     "@types/node-fetch": "^2.6.12",
     "@typescript-eslint/eslint-plugin": "^8.26.1",
@@ -46,6 +50,7 @@
     "fs-extra": "^11.3.0",
     "globals": "^16.0.0",
     "prettier": "^2.8.8",
+    "release-it": "^15.5.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"
@@ -56,5 +61,24 @@
   "volta": {
     "node": "22.14.0",
     "pnpm": "10.6.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "release-it": {
+    "plugins": {
+      "@release-it-plugins/lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": true
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_AUTH"
+    },
+    "npm": false
   }
 }
