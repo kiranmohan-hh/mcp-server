@@ -28,6 +28,7 @@
     "inspect": "npx @modelcontextprotocol/inspector node build/index.js",
     "lint": "eslint --ext ts,js --fix src",
     "prepare": "pnpm run build",
+    "release": "release-it",
     "test": "vitest run",
     "test:watch": "vitest"
   },
