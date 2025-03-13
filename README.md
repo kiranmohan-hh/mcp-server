@@ -20,8 +20,22 @@ A Model Context Protocol (MCP) server implementation for Glean's search and chat
 
 ## Installation
 
+With `npm`:
+
 ```bash
 npm install @gleanwork/mcp-server
+```
+
+With `pnpm`:
+
+```bash
+pnpm install @gleanwork/mcp-server
+```
+
+With `yarn`:
+
+```bash
+yarn add @gleanwork/mcp-server
 ```
 
 ## Configuration
