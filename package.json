@@ -1,7 +1,6 @@
 {
   "name": "@gleanwork/mcp-server",
   "version": "0.0.1",
-  "private": true,
   "description": "MCP server for Glean API integration",
   "keywords": [
     "mcp",
@@ -15,6 +14,9 @@
   "license": "MIT",
   "author": "Steve Calvert <steve.calvert@glean.com>",
   "type": "module",
+  "bin": {
+    "glean-mcp-server": "build/index.js"
+  },
   "main": "./build/index.js",
   "files": [
     "build/lib/**/*",
@@ -64,7 +66,8 @@
     "pnpm": "10.6.2"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "release-it": {
     "plugins": {
@@ -79,7 +82,6 @@
     "github": {
       "release": true,
       "tokenRef": "GITHUB_AUTH"
-    },
-    "npm": false
+    }
   }
 }
