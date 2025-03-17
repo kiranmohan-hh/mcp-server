@@ -195,7 +195,7 @@ export const SearchSchema = z.object({
     .number()
     .optional()
     .describe('Maximum characters for snippets'),
-  pageSize: z.number().optional().describe('Number of results to return'),
+  pageSize: z.number().default(10).describe('Number of results to return'),
   timestamp: z
     .string()
     .optional()
