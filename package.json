@@ -19,9 +19,10 @@
   },
   "main": "./build/index.js",
   "files": [
-    "build/lib/**/*",
-    "build/index.*",
-    "build/types/**/*"
+    "build/common/**/*",
+    "build/tools/**/*",
+    "build/types/**/*",
+    "build/index.*"
   ],
   "scripts": {
     "build": "rimraf build && tsc",
