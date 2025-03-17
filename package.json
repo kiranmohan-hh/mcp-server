@@ -15,7 +15,7 @@
   "author": "Steve Calvert <steve.calvert@glean.com>",
   "type": "module",
   "bin": {
-    "glean-mcp-server": "build/index.js"
+    "glean-mcp-server": "./build/index.js"
   },
   "main": "./build/index.js",
   "files": [
@@ -25,10 +25,10 @@
     "build/index.*"
   ],
   "scripts": {
-    "build": "rimraf build && tsc",
-    "build-live": "tsc -w",
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "watch": "tsc -w",
     "format": "prettier src/**/*.ts -w",
-    "inspect": "npx @modelcontextprotocol/inspector node build/index.js",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
     "lint": "eslint --ext ts,js --fix src",
     "prepare": "pnpm run build",
     "release": "release-it",
