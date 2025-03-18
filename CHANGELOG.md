@@ -1,4 +1,14 @@
 
+
+## v0.1.0-alpha.6 (2025-03-18)
+
+#### :bug: Bug Fix
+* [#5](https://github.com/gleanwork/mcp-server/pull/5) fix: Adds defaults for search.pageSize (otherwise no results are returned) ([@steve-calvert-glean](https://github.com/steve-calvert-glean))
+
+#### Committers: 1
+- Steve Calvert ([@steve-calvert-glean](https://github.com/steve-calvert-glean))
+
+
 ## v0.1.0-alpha.4 (2025-03-17)
 
 
