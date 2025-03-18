@@ -15,7 +15,7 @@
   "author": "Steve Calvert <steve.calvert@glean.com>",
   "type": "module",
   "bin": {
-    "glean-mcp-server": "./build/index.js"
+    "glean-mcp-server": "build/index.js"
   },
   "main": "./build/index.js",
   "files": [
