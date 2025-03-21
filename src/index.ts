@@ -56,13 +56,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
     tools: [
       {
-        name: 'search',
-        description: 'Search Glean',
+        name: 'glean_search',
+        description: 'Search Glean Enterprise Knowledge',
         inputSchema: zodToJsonSchema(search.SearchSchema),
       },
       {
-        name: 'chat',
-        description: 'Chat with Glean',
+        name: 'glean_chat',
+        description: "Chat with Glean Assistant using Glean's RAG",
         inputSchema: zodToJsonSchema(chat.ChatSchema),
       },
     ],
