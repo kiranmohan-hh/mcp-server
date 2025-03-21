@@ -55,13 +55,13 @@ export GLEAN_ACT_AS=user@example.com
 
 ## Tools
 
-### search
+### glean_search
 
 Search Glean's content index using the Glean Search API. This tool allows you to query Glean's content index with various filtering and configuration options.
 
 For complete parameter details, see [Search API Documentation](https://developers.glean.com/client/operation/search/)
 
-### chat
+### glean_chat
 
 Interact with Glean's AI assistant using the Glean Chat API. This tool allows you to have conversational interactions with Glean's AI, including support for message history, citations, and various configuration options.
 
@@ -80,7 +80,7 @@ node build/index.js
 The server can also be run in inspect mode, which provides additional debugging information:
 
 ```bash
-pnpm inspect
+pnpm inspector
 ```
 
 This will run MCP's inspector, which allows you to execute and debug calls to the server.
