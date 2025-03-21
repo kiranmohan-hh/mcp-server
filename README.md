@@ -53,6 +53,27 @@ export GLEAN_API_TOKEN=your_api_token
 export GLEAN_ACT_AS=user@example.com
 ```
 
+## MCP Client Configuration
+
+To configure this MCP server in your MCP client (such as Claude Desktop, Windsurf, Cursor, etc.), add the following configuration to your MCP client settings:
+
+```json
+{
+  "mcpServers": {
+    "glean": {
+      "command": "npx",
+      "args": ["-y", "@gleanwork/mcp-server"],
+      "env": {
+        "GLEAN_SUBDOMAIN": "<glean instance subdomain>",
+        "GLEAN_API_TOKEN": "<glean api token>"
+      }
+    }
+  }
+}
+```
+
+Replace the environment variable values with your actual Glean credentials.
+
 ## Tools
 
 ### glean_search
