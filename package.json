@@ -32,8 +32,8 @@
     "lint": "eslint --ext ts,js --fix src",
     "prepare": "pnpm run build",
     "release": "release-it",
-    "test": "vitest run --config vitest.config.ts",
-    "test:watch": "vitest --config vitest.config.ts"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.7.0",
