@@ -34,6 +34,11 @@ import {
   GleanValidationError,
 } from './common/errors.js';
 
+const TOOL_NAMES = {
+  search: 'glean_search',
+  chat: 'glean_chat',
+};
+
 /**
  * MCP server instance configured for Glean's implementation.
  * Supports tool discovery and execution through the MCP protocol.
@@ -56,12 +61,12 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
     tools: [
       {
-        name: 'glean_search',
+        name: TOOL_NAMES.search,
         description: 'Search Glean Enterprise Knowledge',
         inputSchema: zodToJsonSchema(search.SearchSchema),
       },
       {
-        name: 'glean_chat',
+        name: TOOL_NAMES.chat,
         description: "Chat with Glean Assistant using Glean's RAG",
         inputSchema: zodToJsonSchema(chat.ChatSchema),
       },
@@ -88,7 +93,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     switch (request.params.name) {
-      case 'search': {
+      case TOOL_NAMES.search: {
         const args = search.SearchSchema.parse(request.params.arguments);
         const result = await search.search(args);
         const formattedResults = search.formatResponse(result);
@@ -99,7 +104,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
       }
 
-      case 'chat': {
+      case TOOL_NAMES.chat: {
         const args = chat.ChatSchema.parse(request.params.arguments);
         const response = await chat.chat(args);
         const formattedResponse = chat.formatResponse(response);
