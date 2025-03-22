@@ -39,25 +39,25 @@
     "@modelcontextprotocol/sdk": "^1.7.0",
     "node-fetch": "^2.7.0",
     "zod": "^3.24.2",
-    "zod-to-json-schema": "^3.24.3"
+    "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.0",
-    "@eslint/js": "^9.22.0",
-    "@release-it-plugins/lerna-changelog": "^5.0.0",
-    "@types/node": "^18.19.80",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.23.0",
+    "@release-it-plugins/lerna-changelog": "^7.0.0",
+    "@types/node": "^18.19.81",
     "@types/node-fetch": "^2.6.12",
-    "@typescript-eslint/eslint-plugin": "^8.26.1",
-    "@typescript-eslint/parser": "^8.26.1",
-    "eslint": "^9.22.0",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "eslint": "^9.23.0",
     "eslint-plugin-prettier": "^3.4.1",
     "fs-extra": "^11.3.0",
     "globals": "^16.0.0",
     "prettier": "^2.8.8",
-    "release-it": "^15.5.0",
+    "release-it": "^17.11.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.2",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   },
   "engines": {
     "node": ">=18"
