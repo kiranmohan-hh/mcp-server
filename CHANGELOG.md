@@ -1,5 +1,18 @@
 
 
+
+## v0.1.1 (2025-03-22)
+
+#### :bug: Bug Fix
+* [#14](https://github.com/gleanwork/mcp-server/pull/14) fix: Updates tool names in request handler to match new names ([@steve-calvert-glean](https://github.com/steve-calvert-glean))
+
+#### :house: Internal
+* [#15](https://github.com/gleanwork/mcp-server/pull/15) internal: Adding issue, pull request, and feature templates for GitHub ([@steve-calvert-glean](https://github.com/steve-calvert-glean))
+
+#### Committers: 1
+- Steve Calvert ([@steve-calvert-glean](https://github.com/steve-calvert-glean))
+
+
 ## v0.1.0 (2025-03-21)
 
 
