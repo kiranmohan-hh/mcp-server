@@ -30,7 +30,7 @@
     "format": "prettier src/**/*.ts -w",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js",
     "lint": "eslint --ext ts,js --fix src",
-    "prepare": "pnpm run build",
+    "prepare": "npm run build",
     "release": "release-it",
     "test": "vitest run",
     "test:watch": "vitest"
